@@ -41,7 +41,7 @@ Here's an example.
   You should get something back, like:
 </p>
 <pre class="headers">
-  <%= subject.let(:expected_headers) { dt_headers({"Content-type" => "application/json" }) %>
+  <%= subject.let(:expected_headers) { dt_headers({"Content-type" => "application/json" }) } %>
 </pre>
 <pre class="json">
 <%= subject.let(:expected_json) { dt_json(
@@ -61,8 +61,9 @@ Here's an example.
           bird: dt_present_string("Gray Jay")
         }
       ]
+    )
   }
-) %>
+) } %>
 </pre>
 ```
 
@@ -71,7 +72,8 @@ When you render the ERB to make your documentation, the matchers produce the exp
 ```ruby
 require 'doctestomatic'
 
-puts Doctestomatic::Doctest.new("docs/songs.html.erb").render
+songs_file = File.read("doc/songs.html.erb")
+puts Doctestomatic::Doctest.new(songs_file).result
 ```
 ```html
 <h1>Birdsong API</h1>
@@ -121,7 +123,7 @@ Doctestomatic.error_factory do |message|
   raise(Minitest::Assertion, message)
 end
 
-MY_APP  = Rack::Builder.parse_file('config.ru').first
+MY_APP = Rack::Builder.parse_file('config.ru').first
 
 class TestBirdsongAPI < Minitest::Test
   include Rack::Test::Methods
@@ -136,7 +138,7 @@ class TestBirdsongAPI < Minitest::Test
 
   doctest.subjects_and_lets.each do |subject, lets|
     define_method "test_#{subject.name}_headers" do
-      get subject.to_s # "/songs"
+      get(subject.to_s) # "/songs"
 
       expected_headers = lets(:expected_headers)
       actual_headers   = last_response.headers
