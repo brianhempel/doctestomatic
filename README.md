@@ -29,7 +29,7 @@ In the tests, the ERB files are evaluated and the tests pluck out the subjects a
 
 Here's an example.
 
-```
+```html+erb
 <h1>Birdsong API</h1>
 <p>
   To list all the birdsongs:
