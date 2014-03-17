@@ -64,8 +64,6 @@ Here's an example.
   }
 ) %>
 </pre>
-</body>
-</html>
 ```
 
 When you render the ERB to make your documentation, the matchers produce the expected example output.
